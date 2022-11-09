@@ -26,6 +26,7 @@ void InsertarPrincipio(Lista* lista, Libro* libro){
     Nodo* nodo = CrearNodo(libro); // Crea un nuevo nodo a partir de los datos de mi libro
     nodo->siguiente = lista->cabeza;
     lista->cabeza = nodo;
+    lista->longitud++;
 }
 
 /* Insertar un libro al final de lista */
@@ -47,6 +48,8 @@ void InsertarFinal(Lista* lista, Libro* libro){
         puntero->siguiente = nodo;
 
     }
+
+    lista->longitud++;
 
 }
 
@@ -74,6 +77,7 @@ void InsertarDespues(int n, Lista* lista, Libro* libro){
 
     }
 
+    lista->longitud++;
 
 }
 
@@ -102,7 +106,84 @@ Libro* Obtener(int n, Lista* lista){
 
 }
 
-// 
-int Contar() {
+// Cuenta el número de elementos que hay en una lista
+int Contar(Lista* lista) {
+    return lista->longitud;
+}
+
+// Devuelve 1 si la lista no está vacía y 0 en caso contrario
+int EstaVacia(Lista* lista){
+    return lista->cabeza == NULL;
+}
+
+// Elimina el primer elemento de la lista
+void EliminarPrincipio(Lista* lista){
+
+    if(lista->cabeza){
+        Nodo* eliminado = lista->cabeza;
+        lista->cabeza = lista->cabeza->siguiente;
+        DestruirNodo(eliminado);
+        lista->longitud--;
+    }
 
 }
+
+// Elimina el último elemento de la lista
+void EliminarUltimo(Lista* lista){
+    
+    if(lista->cabeza){
+
+        // Si la lista sólamente tiene más de 1 elemento
+        if (lista->cabeza->siguiente){
+            Nodo* puntero = lista->cabeza;
+            while(puntero->siguiente->siguiente){
+                puntero = puntero->siguiente;
+            }
+
+            // Hemos llegado al penúltimo, pero tenemos que mantener una referencia al nodo que vamos a eliminar
+            Nodo* eliminado = puntero->siguiente;
+            puntero->siguiente = NULL;
+            DestruirNodo(eliminado);
+            lista->longitud--;
+        } else {
+            Nodo* eliminado = lista->cabeza;
+            lista->cabeza = NULL;
+            DestruirNodo(eliminado);
+            lista->longitud--;
+        }
+
+    }
+}  
+
+// Elimina el elemento n de mi lista
+void EliminarElemento(int n, Lista* lista){
+
+    // Comprobamos que la lista no esté vacía
+    if(lista->cabeza){
+
+        // Caso particular en el que se nos pide eliminar el primer elemento de la lista
+        if (n == 0){
+            Nodo* eliminado = lista->cabeza;
+            lista->cabeza = lista->cabeza->siguiente;
+            DestruirNodo(eliminado);
+            lista->longitud--;
+        } else if (n < lista->longitud) { // Comprobamos que n se encuentre en los límites de mi lista
+
+            Nodo* puntero = lista->cabeza;
+            int posicion = 0;
+            while(posicion < (n-1)){
+                puntero = puntero->siguiente;
+                posicion++;
+            }
+
+            // Una vez estemos en el nodo anterior al que queremos eliminar
+            Nodo* eliminado = puntero->siguiente;
+            puntero->siguiente = eliminado->siguiente;
+            DestruirNodo(eliminado);
+            lista->longitud--;
+
+        }
+
+    }
+
+} 

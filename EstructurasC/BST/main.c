@@ -69,18 +69,53 @@ void DeterminarExistencia(Nodo* arbol, int valor){
     }
 }   
 
+void Preorden(Nodo* arbol){
+    if (arbol == NULL){ // Detectamos el caso base, que es cuando el árbol está vacío
+        printf(" - ");
+    } else { // Sino, tenemos que procesar este nodo que me pasas
+        printf("( %d ", arbol->valor); // Procesamos la raíz
+        Preorden(arbol->izqo);
+        Preorden(arbol->dcho);
+        printf(" )");
+    }
+}
+
+void Inorden(Nodo* arbol){
+    if (arbol == NULL){ // Caso base
+        printf(" - ");
+    } else {
+        printf("( ");
+        Inorden(arbol->izqo);
+        printf(" %d ", arbol->valor);
+        Inorden(arbol->dcho);
+        printf(" )");
+    }
+}
+
+void Postorden(Nodo* arbol){
+    if (arbol == NULL){ // Caso base
+        printf(" - ");
+    } else {   
+        printf("( ");
+        Postorden(arbol->izqo);
+        Postorden(arbol->dcho);
+        printf(" %d )", arbol->valor);
+    }
+}
+
 int main(int argc, char **argv){
     //Nodo *arbol = CrearNodo(10); // Creamos un árbol y guardamos el elemento número 10
-    Nodo *arbol = NULL; // Creamos un árbol vacío
-    Insertar(&arbol, 5);
-    Insertar(&arbol, 10);
-    Insertar(&arbol, 4);
-    Insertar(&arbol, 9);
-    Insertar(&arbol, 15);
+    // Creamos un árbol vacío
+    Nodo *arbol = NULL;     Postorden(arbol); printf("\n");
+    Insertar(&arbol, 5);    Postorden(arbol); printf("\n");
+    Insertar(&arbol, 10);   Postorden(arbol); printf("\n");
+    Insertar(&arbol, 4);    Postorden(arbol); printf("\n");
+    Insertar(&arbol, 9);    Postorden(arbol); printf("\n");
+    Insertar(&arbol, 15);   Postorden(arbol); printf("\n");
 
-    DeterminarExistencia(arbol, 10);
+    /*DeterminarExistencia(arbol, 10);
     DeterminarExistencia(arbol, 3);
-    DeterminarExistencia(arbol, 9);
+    DeterminarExistencia(arbol, 9);*/
 
     return 0; 
 }

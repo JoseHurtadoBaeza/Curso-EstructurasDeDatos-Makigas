@@ -1,5 +1,3 @@
-package BST;
-
 public class BST implements IBST<Empleado> {
 
     private Empleado valor;

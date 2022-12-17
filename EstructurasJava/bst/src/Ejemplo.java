@@ -1,5 +1,3 @@
-package BST;
-
 public class Ejemplo {
 
     public static void main(String[] args){
@@ -9,6 +7,10 @@ public class Ejemplo {
         Empleado e4 = new Empleado(33, "José Gómez", "Contabilidad", "B-96");
         Empleado e5 = new Empleado(64, "Francisco Pérez", "Márketing", "A-69");
         Empleado e6 = new Empleado(55, "Javier López", "Informática", "B-161");
+    
+        BST bst = new BST();
+        System.out.println("Esta vacío: " + bst.esVacio() + " - Es hoja:" + bst.esHoja());
+
     }
 
 }

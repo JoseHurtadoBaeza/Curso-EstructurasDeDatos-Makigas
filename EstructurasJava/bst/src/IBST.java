@@ -1,5 +1,3 @@
-package BST;
-
 public interface IBST <T extends Comparable>{
     
     void insertar(T empl);

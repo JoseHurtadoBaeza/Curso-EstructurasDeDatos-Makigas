@@ -26,39 +26,84 @@ public class BST implements IBST<Empleado> {
                 if (dcho == null) dcho = new BST();
                 dcho.insertar(empl);
             } else { // Por si se da el caso de que el compareTo da 0, por lo que tendríamos un duplicado
-                // Podemos no hacer nada o tirar una excepción, podemos dar un mensaje de error. En este caso no vamos a hacer nada.
+                // Podemos no hacer nada o tirar una excepción, podemos dar un mensaje de error.
+                throw new RuntimeException("Insertando elemento duplicado.");
             }
         }
     }
 
-    @Override
+    @Override /* Debe devolver true si encuentra el elemento en el árbol, falso en caso contrario */
     public boolean existe(int id) {
-        // TODO Auto-generated method stub
-        return false;
+        if (valor != null){ // Comprobamos que el valor no sea vacío
+            if (id == valor.getId()){
+                return true;
+            } else if (id < valor.getId() && izdo != null){
+                return izdo.existe(id);
+            } else if (id > valor.getId() && dcho != null){
+                return dcho.existe(id);
+            } else { // Si no existe lo que estamos buscando
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
-    @Override
+    @Override /* Devolvemos el propio empleado si lo encuentro y sino un null */
     public Empleado obtener(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        if (valor != null){ // Comprobamos que el valor no sea vacío
+            if (id == valor.getId()){
+                return valor;
+            } else if (id < valor.getId() && izdo != null){
+                return izdo.obtener(id);
+            } else if (id > valor.getId() && dcho != null){
+                return dcho.obtener(id);
+            } else { // Si no existe lo que estamos buscando
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    /* De forma recursiva se ponga un margen a medida que nos vamos hundiendo*/
+    private void preordenImpl(String prefijo){
+        if (valor != null){ // Si el árbol no es vacío
+            System.out.println(prefijo + valor); // Procesamos la raíz
+            if (izdo != null) izdo.preordenImpl(prefijo + "  ");
+            if (dcho != null) dcho.preordenImpl(prefijo + "  ");
+        }
     }
 
     @Override
     public void preorden() {
-        // TODO Auto-generated method stub
-        
+        preordenImpl("");
+    }
+
+    private void inordenImpl(String prefijo){
+        if (valor != null){ // Si el árbol no es vacío
+            if (izdo != null) izdo.inordenImpl(prefijo + "  ");
+            System.out.println(prefijo + valor); // Procesamos la raíz
+            if (dcho != null) dcho.inordenImpl(prefijo + "  ");
+        }
     }
 
     @Override
     public void inorden() {
-        // TODO Auto-generated method stub
-        
+        inordenImpl("");
+    }
+
+    private void postordenImpl(String prefijo){
+        if (valor != null){ // Si el árbol no es vacío
+            if (izdo != null) izdo.postordenImpl(prefijo + "  ");
+            if (dcho != null) dcho.postordenImpl(prefijo + "  ");
+            System.out.println(prefijo + valor); // Procesamos la raíz
+        }
     }
 
     @Override
     public void postorden() {
-        // TODO Auto-generated method stub
-        
+        postordenImpl("");
     }
 
     @Override

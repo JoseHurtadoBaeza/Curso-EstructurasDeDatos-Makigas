@@ -47,12 +47,12 @@ public class Empleado implements Comparable<Empleado>{
         this.despacho = despacho;
     }
 
-    /*@Override
-    public String toString(){
-
-    }
-
     @Override
+    public String toString(){
+        return "Empleado {id=" + id + ", nombre=" + nombre + ", puesto=" + puesto + ", despacho=" + despacho;
+    }  
+
+    /*@Override
     public int hashCode(){
 
     }

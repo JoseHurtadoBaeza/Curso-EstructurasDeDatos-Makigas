@@ -3,6 +3,7 @@ import java.util.Arrays;
 public class Ejemplo {
 
     public static void main(String[] args){
+        
         Empleado e1 = new Empleado(20, "Pepito Pérez", "Ventas", "A-252");
         Empleado e2 = new Empleado(44, "Ana López", "Recursos Humanos", "B-198");
         Empleado e3 = new Empleado(18, "Elena Nito", "Ventas", "A-241");
@@ -13,7 +14,9 @@ public class Ejemplo {
         BST bst = new BST();
         Arrays.asList(e1, e2, e3, e4, e5, e6).forEach(e -> bst.insertar(e)); // Coge cada uno de los elementos de la lista y los mete en el árbol bst
 
-        bst.postorden();
+        bst.eliminar(20);
+
+        bst.inorden();
 
         /*BST bst = new BST();
         System.out.println("Está vacío: " + bst.esVacio() + " - Es hoja:" + bst.esHoja());
